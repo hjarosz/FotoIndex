@@ -1,4 +1,4 @@
-/***************************************************************
+ï»¿/***************************************************************
  * Name:      FotoIndexMain.cpp
  * Purpose:   Code for Application Frame
  * Author:     ()
@@ -12,38 +12,40 @@
 #include <sstream>
 #include <string>
 #include <wx/dcmemory.h>
+#include <wx/textdlg.h>
 
 
-//(*InternalHeaders(FotoIndexFrame)
-#include <wx/font.h>
-#include <wx/intl.h>
-#include <wx/string.h>
-//*)
+ //(*InternalHeaders(FotoIndexFrame)
+ #include <wx/font.h>
+ #include <wx/intl.h>
+ #include <wx/string.h>
+ //*)
 
 //helper functions
 enum wxbuildinfoformat {
-    short_f, long_f };
+	short_f, long_f
+};
 
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
-    wxString wxbuild(wxVERSION_STRING);
+	wxString wxbuild(wxVERSION_STRING);
 
-    if (format == long_f )
-    {
+	if (format == long_f)
+	{
 #if defined(__WXMSW__)
-        wxbuild << _T("-Windows");
+		wxbuild << _T("-Windows");
 #elif defined(__UNIX__)
-        wxbuild << _T("-Linux");
+		wxbuild << _T("-Linux");
 #endif
 
 #if wxUSE_UNICODE
-        wxbuild << _T("-Unicode build");
+		wxbuild << _T("-Unicode build");
 #else
-        wxbuild << _T("-ANSI build");
+		wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
-    }
+	}
 
-    return wxbuild;
+	return wxbuild;
 }
 
 //(*IdInit(FotoIndexFrame)
@@ -55,177 +57,260 @@ const long FotoIndexFrame::ID_DIRPICKERCTRL2 = wxNewId();
 const long FotoIndexFrame::ID_PANEL1 = wxNewId();
 const long FotoIndexFrame::idMenuQuit = wxNewId();
 const long FotoIndexFrame::idMenuAbout = wxNewId();
-const long FotoIndexFrame::ID_STATUSBAR1 = wxNewId();
 //*)
 
-BEGIN_EVENT_TABLE(FotoIndexFrame,wxFrame)
-    //(*EventTable(FotoIndexFrame)
-    //*)
+BEGIN_EVENT_TABLE(FotoIndexFrame, wxFrame)
+//(*EventTable(FotoIndexFrame)
+//*)
 END_EVENT_TABLE()
 
-FotoIndexFrame::FotoIndexFrame(wxWindow* parent,wxWindowID id)
+FotoIndexFrame::FotoIndexFrame(wxWindow* parent, wxWindowID id)
 {
-    //(*Initialize(FotoIndexFrame)
-    wxMenu* Menu1;
-    wxMenu* Menu2;
-    wxMenuBar* MenuBar1;
-    wxMenuItem* MenuItem1;
-    wxMenuItem* MenuItem2;
+	//(*Initialize(FotoIndexFrame)
+	wxMenu* Menu1;
+	wxMenu* Menu2;
+	wxMenuBar* MenuBar1;
+	wxMenuItem* MenuItem1;
+	wxMenuItem* MenuItem2;
 
-    Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-    SetClientSize(wxSize(267,191));
-    SetMinSize(wxSize(344,240));
-    SetMaxSize(wxSize(344,240));
-    Panel1 = new wxPanel(this, ID_PANEL1, wxPoint(160,88), wxSize(344,240), wxSTATIC_BORDER|wxTAB_TRAVERSAL, _T("ID_PANEL1"));
-    Panel1->SetMinSize(wxSize(344,240));
-    Panel1->SetMaxSize(wxSize(344,240));
-    submit = new wxButton(Panel1, ID_BUTTON1, _("Submit"), wxPoint(104,112), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    sourceText = new wxStaticText(Panel1, ID_STATICTEXT1, _("Source"), wxPoint(24,24), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    wxFont sourceTextFont(12,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Arial"),wxFONTENCODING_DEFAULT);
-    sourceText->SetFont(sourceTextFont);
-    targetText = new wxStaticText(Panel1, ID_STATICTEXT2, _("Target"), wxPoint(24,72), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    wxFont targetTextFont(12,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,wxEmptyString,wxFONTENCODING_DEFAULT);
-    targetText->SetFont(targetTextFont);
-    sourcePicker = new wxDirPickerCtrl(Panel1, ID_DIRPICKERCTRL1, wxEmptyString, _("Choose source folder"), wxPoint(104,24), wxDefaultSize, wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL, wxDefaultValidator, _T("ID_DIRPICKERCTRL1"));
-    targetPicker = new wxDirPickerCtrl(Panel1, ID_DIRPICKERCTRL2, wxEmptyString, _("Choose destination folder"), wxPoint(104,72), wxDefaultSize, wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL, wxDefaultValidator, _T("ID_DIRPICKERCTRL2"));
-    MenuBar1 = new wxMenuBar();
-    Menu1 = new wxMenu();
-    MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
-    Menu1->Append(MenuItem1);
-    MenuBar1->Append(Menu1, _("&File"));
-    Menu2 = new wxMenu();
-    MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
-    Menu2->Append(MenuItem2);
-    MenuBar1->Append(Menu2, _("Help"));
-    SetMenuBar(MenuBar1);
-    StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
-    int __wxStatusBarWidths_1[1] = { -1 };
-    int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
-    StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
-    StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
-    SetStatusBar(StatusBar1);
+	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	SetClientSize(wxSize(267,191));
+	SetMinSize(wxSize(344,240));
+	SetMaxSize(wxSize(344,240));
+	Panel1 = new wxPanel(this, ID_PANEL1, wxPoint(160,88), wxSize(344,240), wxSTATIC_BORDER|wxTAB_TRAVERSAL, _T("ID_PANEL1"));
+	Panel1->SetMinSize(wxSize(344,240));
+	Panel1->SetMaxSize(wxSize(344,240));
+	submit = new wxButton(Panel1, ID_BUTTON1, _("Submit"), wxPoint(104,112), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+	sourceText = new wxStaticText(Panel1, ID_STATICTEXT1, _("Source"), wxPoint(24,24), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+	wxFont sourceTextFont(12,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Arial"),wxFONTENCODING_DEFAULT);
+	sourceText->SetFont(sourceTextFont);
+	targetText = new wxStaticText(Panel1, ID_STATICTEXT2, _("Target"), wxPoint(24,72), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+	wxFont targetTextFont(12,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,wxEmptyString,wxFONTENCODING_DEFAULT);
+	targetText->SetFont(targetTextFont);
+	sourcePicker = new wxDirPickerCtrl(Panel1, ID_DIRPICKERCTRL1, wxEmptyString, _("Choose source folder"), wxPoint(104,24), wxDefaultSize, wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL, wxDefaultValidator, _T("ID_DIRPICKERCTRL1"));
+	targetPicker = new wxDirPickerCtrl(Panel1, ID_DIRPICKERCTRL2, wxEmptyString, _("Choose destination folder"), wxPoint(104,72), wxDefaultSize, wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL, wxDefaultValidator, _T("ID_DIRPICKERCTRL2"));
+	MenuBar1 = new wxMenuBar();
+	Menu1 = new wxMenu();
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
+	Menu1->Append(MenuItem1);
+	MenuBar1->Append(Menu1, _("&File"));
+	Menu2 = new wxMenu();
+	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
+	Menu2->Append(MenuItem2);
+	MenuBar1->Append(Menu2, _("Help"));
+	SetMenuBar(MenuBar1);
 
-    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FotoIndexFrame::OnsubmitClick);
-    Connect(ID_DIRPICKERCTRL1,wxEVT_COMMAND_DIRPICKER_CHANGED,(wxObjectEventFunction)&FotoIndexFrame::OnsourcePickerDirChanged);
-    Connect(ID_DIRPICKERCTRL2,wxEVT_COMMAND_DIRPICKER_CHANGED,(wxObjectEventFunction)&FotoIndexFrame::OntargetPickerDirChanged);
-    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FotoIndexFrame::OnQuit);
-    Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FotoIndexFrame::OnAbout);
-    //*)
+	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&FotoIndexFrame::OnsubmitClick);
+	Connect(ID_DIRPICKERCTRL1,wxEVT_COMMAND_DIRPICKER_CHANGED,(wxObjectEventFunction)&FotoIndexFrame::OnsourcePickerDirChanged);
+	Connect(ID_DIRPICKERCTRL2,wxEVT_COMMAND_DIRPICKER_CHANGED,(wxObjectEventFunction)&FotoIndexFrame::OntargetPickerDirChanged);
+	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FotoIndexFrame::OnQuit);
+	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&FotoIndexFrame::OnAbout);
+	//*)
+}
+
+
+//COMPARE FUNCTION
+static int CompareString(const wxString& first, const wxString& second)
+{
+	wxFileName f1 = first;
+	wxFileName f2 = second;
+	return f1.GetName().Cmp(f2.GetName()); // CmpNoCase if we dont want to consider capital letters
 }
 //returning pointer to array with all images paths
-wxArrayString* fetchFileNames(const wxString sourcePath){
-    wxArrayString* filesArray = new wxArrayString(); //keeps all files paths
-    size_t count = wxDir::GetAllFiles(sourcePath, filesArray);
+wxArrayString* fetchFileNames(const wxString sourcePath) {
+	wxArrayString* filesArray = new wxArrayString(); //keeps all files paths
+	size_t count = wxDir::GetAllFiles(sourcePath, filesArray);
+	//SOROTWANKO
+	filesArray->Sort(CompareString);
+	return filesArray;
+}
+
+//creating path for single file
+wxString createNewFilePath(const wxString& targetPath, const wxString& sourcePath, size_t counter) {
+	std::stringstream sstm;
+	sstm << targetPath << "\\" << counter << "_" "indexed_from-"<< sourcePath.AfterLast('\\') << ".bmp";
+	return wxString(sstm.str());
+}
+
+//returning bitmap with specific text(filename)
+wxBitmap createText(const wxFileName filename)
+{
+
+	wxBitmap txtBitmap = wxBitmap(150, 30);
+	wxMemoryDC memdc;
+	memdc.SelectObject(txtBitmap);
+	memdc.SetBackgroundMode(wxPENSTYLE_SOLID);
+	memdc.SetTextForeground(*wxWHITE);
+	memdc.SetTextBackground(*wxBLACK);
+
+	wxString txt = wxString(filename.GetName());
+	wxSize center = memdc.GetMultiLineTextExtent(txt);
+	if (center.GetWidth() > 150)
+	{
+		int chars = 0;
+		int width = memdc.GetCharWidth();
+		chars = (140) / width;
+		int end = center.GetWidth() / width;
+		txt = "~"+txt.Mid(end - chars);
+		memdc.DrawText(txt, 0, 0);
+	}
+	else
+	{
+		int x = center.GetWidth() / 2;
+		memdc.DrawText(txt, 75 - x, 0);
+	}
+	wxBitmap outBmp = memdc.GetAsBitmap();
+	memdc.SelectObject(wxNullBitmap);
+	return outBmp;
+}
+
+//returning bitmat with user comment for index page
+wxBitmap addComment(const wxFileName filename,const wxString comment)
+{
+	wxBitmap txtBitmap = wxBitmap(800, 30);
+	wxMemoryDC memdc;
+	memdc.SelectObject(txtBitmap);
+	memdc.SetBackgroundMode(wxPENSTYLE_SOLID);
+	memdc.SetTextForeground(*wxRED);
+	memdc.SetTextBackground(*wxBLACK);
+
+	memdc.DrawText(comment, 10, 0);
+	wxBitmap outBmp = memdc.GetAsBitmap();
+	memdc.SelectObject(wxNullBitmap);
+	return outBmp;
+}
+
+//messagebox with input for comment
+wxString askUserForComment(int number){
     std::stringstream stream;
-    stream << "Found " <<count << " files!";
-    const wxString message = wxString(stream.str());
-    wxMessageBox(message);
-    return filesArray;
+	stream << "Provide commentary for " << number << " page of index";
+	const wxString comment = wxString(stream.str());
+    wxTextEntryDialog* dialog = new wxTextEntryDialog(NULL, comment, wxT("Message"), wxT("my comment"));
+	if (dialog->ShowModal() == wxID_OK)
+        return  dialog->GetValue();
+    return wxT("");
+
 }
 
-wxString createNewFilePath(const wxString targetPath, size_t counter){
-    std::stringstream sstm;
-    sstm << targetPath << "\\miniaturka_" << counter << ".bmp" ;
-    return wxString(sstm.str());
+//checking all fetched files extensions and removing them if not image
+bool checkExtension(wxString extension){
+    wxArrayString supportedExtensions;
+    supportedExtensions.Add(wxString("bmp"));
+    supportedExtensions.Add(wxString("jpg"));
+    supportedExtensions.Add(wxString("jpeg"));
+    supportedExtensions.Add(wxString("png"));
+
+    if(supportedExtensions.Index(extension.Lower()) == wxNOT_FOUND){
+        return true;
+    }
+    return false;
 }
 
 //////////////////////////////////////////////////////////
-//W SUMIE TO G£ÓWNA FUNKCJA, TU WARTO SPOJRZEC
+//GENERALLY MAIN FUNCTION
 //////////////////////////////////////////////////////////
-void processPathArray(wxArrayString* pathArray, const wxString& targetPath){
-    wxCoord posX = 0;
-    wxCoord posY = 0;
-    int totalFiles = (int) ceil(pathArray->GetCount() / 20.0);
-    wxImage resultPic = wxImage(800, 600);
+void processPathArray(wxArrayString* pathArray, const wxString& sourcePath, const wxString& targetPath) {
+	wxCoord posX = 5;
+	wxCoord posY = 0;
+	const int totalFiles = pathArray->GetCount();
+	wxImage resultPic = wxImage(800, 600);
 
-    wxBitmap txtBitmap = wxBitmap(100, 30);
-    wxMemoryDC memdc;
-    memdc.SelectObject(txtBitmap);
-    memdc.SetBackgroundMode( wxPENSTYLE_SOLID );
-    memdc.SetTextForeground( *wxWHITE );
-    memdc.SetTextBackground( *wxBLACK );
+	wxFileName filename(targetPath);
 
-    wxString txt = wxString("chuj");
+	wxBitmap bComment;
 
-    memdc.DrawText(txt, 0, 0);
+	for (size_t i = 0; i < pathArray->GetCount(); ++i)
+	{
+		const wxString filePath = pathArray->Item(i);
 
-    wxBitmap outBmp = memdc.GetAsBitmap();
-    memdc.SelectObject(wxNullBitmap);
+		wxFileName filename(filePath);
 
-    for(size_t i=0; i<pathArray->GetCount(); ++i){
-        const wxString filePath = pathArray->Item(i);
-
-        wxImage orginalPic =  wxImage();
-        orginalPic.LoadFile(filePath);
-        wxImage scaledPic = orginalPic.Scale(150,120);
-        resultPic.Paste(scaledPic, posX, posY);
-        resultPic.Paste(outBmp.ConvertToImage(),posX+75, posY+120);
-        posX += 160;
-        if(posX == 800){
-            posX = 0;
-            posY += 150;
-        }
-
-        //GWIAZDKA KURWA - zrobione po to aby w ka¿dym pliku by³o max 20 miniaturek
-        if((i % 19) == 0 && i != 0){
-            resultPic.SaveFile(createNewFilePath(targetPath,((i+1)/20)),wxBITMAP_TYPE_BMP);
-            resultPic.Destroy();
-            resultPic = wxImage(800, 600);
-            posX = 0;
-            posY = 0;
-            wxMessageBox("chuj");
-        }
-    }
-    //GWIAZDKA KURWA - ¿eby zapisa³o ostatni plik z miniaturkami (jezeli jest podzielne przez 20 to zrobi sie to w if'ie wyzej)
-    if((totalFiles % 20) != 0){
-        resultPic.SaveFile(createNewFilePath(targetPath,(int) ceil(totalFiles/20.0)+1),wxBITMAP_TYPE_JPEG);
-    }
+		wxImage orginalPic = wxImage();
+		orginalPic.LoadFile(filePath);
+		wxImage scaledPic = orginalPic.Scale(150, 110);
+		wxBitmap text = createText(filename);
+		resultPic.Paste(scaledPic, posX, posY);
+		resultPic.Paste(text.ConvertToImage(), posX, posY + 110);
+		posX += 160;
+		if (posX > 800) {
+			posX = 5;
+			posY += 140;
+		}
+		if ((i == 19) || (i>20 && ((i+1)%20) == 0)) {
+            bComment = addComment(filename, askUserForComment(((i + 1) / 20)));
+			resultPic.Paste(bComment.ConvertToImage(), 0, 570);
+			resultPic.SaveFile(createNewFilePath(targetPath, sourcePath, ((i + 1) / 20)), wxBITMAP_TYPE_BMP);
+			resultPic.Destroy();
+			resultPic = wxImage(800, 600);
+			posX = 5;
+			posY = 0;
+		};
+	}
+	if ((totalFiles % 20) != 0) {
+        bComment = addComment(filename, askUserForComment((int)ceil(totalFiles / 20.0)));
+		resultPic.Paste(bComment.ConvertToImage(), 0, 570);
+		resultPic.SaveFile(createNewFilePath(targetPath, sourcePath, (int)ceil(totalFiles / 20.0)), wxBITMAP_TYPE_BMP);
+	}
 }
-//GWIAZDKA KURWA -- jak macie checi to mo¿na to ubraæ w jakieœ pêtle zamiast takich if'ów
 
 FotoIndexFrame::~FotoIndexFrame()
 {
-    //(*Destroy(FotoIndexFrame)
-    //*)
+	//(*Destroy(FotoIndexFrame)
+	//*)
 }
 
-void FotoIndexFrame::OnQuit(wxCommandEvent& event)
+void FotoIndexFrame::OnQuit(wxCommandEvent & event)
 {
-    Close();
+	Close();
 }
 
-void FotoIndexFrame::OnAbout(wxCommandEvent& event)
+void FotoIndexFrame::OnAbout(wxCommandEvent & event)
 {
-    wxString msg = wxbuildinfo(long_f);
-    wxMessageBox(msg, _("Welcome to..."));
+	wxString msg = wxbuildinfo(long_f);
+	wxMessageBox(msg, _("Welcome to..."));
 }
 //////////////////////////////////////////////////////////
-//TO SIE WYKONUJE PO KLIKNIÊCIU SUBMIT
+//THIS PART GOES AFTER SUBMIT CLICK
 //////////////////////////////////////////////////////////
-void FotoIndexFrame::OnsubmitClick(wxCommandEvent& event)
+void FotoIndexFrame::OnsubmitClick(wxCommandEvent & event)
 {
-    const wxString sourcePath = sourcePicker->GetPath();
-    const wxString targetPath = targetPicker->GetPath();
-    const wxString emptyPath = wxString("");
+	const wxString sourcePath = sourcePicker->GetPath();
+	const wxString targetPath = targetPicker->GetPath();
+	const wxString emptyPath = wxString("");
 
-    if(sourcePath == emptyPath || targetPath == emptyPath){
-        wxMessageBox("Select BOTH ditectories!");
-    }
-    else {
-        wxArrayString* pathArray = fetchFileNames(sourcePath); //keeps all files paths (ALL FILES NOT ONLY IMAGES!!!!!!!!!!!)
-        if(pathArray->GetCount() > 0){
-            processPathArray(pathArray, targetPath);
+	if (sourcePath == emptyPath || targetPath == emptyPath) {
+		wxMessageBox("Select BOTH ditectories!");
+	}
+	else {
+		wxArrayString* pathArray = fetchFileNames(sourcePath);//keeps all files paths
+
+		//remove all non image files
+		for (size_t i = 0; i < pathArray->GetCount(); ++i){
+		    wxString filePath = pathArray->Item(i);
+		    if(checkExtension(filePath.AfterLast('.')) == true)
+            {
+             pathArray->RemoveAt(i);
+             i--;
+            }
         }
-        else{
-            wxMessageBox("Found 0 files!");
-        }
-    }
+        pathArray->Shrink();
+		if (pathArray->GetCount() > 0) {
+            std::stringstream sstm;
+            sstm << "Found " << pathArray->GetCount() << " files!";
+            wxMessageBox(wxString(sstm.str()));
+			processPathArray(pathArray, sourcePath, targetPath);
+			wxMessageBox(wxString("Success!"));
+		}
+		else {
+			wxMessageBox("Found 0 files!");
+		}
+	}
 }
 
-void FotoIndexFrame::OnsourcePickerDirChanged(wxFileDirPickerEvent& event)
+void FotoIndexFrame::OnsourcePickerDirChanged(wxFileDirPickerEvent & event)
 {
 }
 
-void FotoIndexFrame::OntargetPickerDirChanged(wxFileDirPickerEvent& event)
+void FotoIndexFrame::OntargetPickerDirChanged(wxFileDirPickerEvent & event)
 {
 }

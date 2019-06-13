@@ -52,7 +52,6 @@ class FotoIndexFrame: public wxFrame
         static const long ID_PANEL1;
         static const long idMenuQuit;
         static const long idMenuAbout;
-        static const long ID_STATUSBAR1;
         //*)
 
         //(*Declarations(FotoIndexFrame)
@@ -62,7 +61,6 @@ class FotoIndexFrame: public wxFrame
         wxPanel* Panel1;
         wxStaticText* sourceText;
         wxStaticText* targetText;
-        wxStatusBar* StatusBar1;
         //*)
 
         DECLARE_EVENT_TABLE()
